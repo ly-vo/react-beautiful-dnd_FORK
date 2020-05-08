@@ -9,6 +9,7 @@ import * as timings from '../../../debug/timings';
 export type PublicArgs = {|
   scrollWindow: (change: Position) => void,
   scrollDroppable: (id: DroppableId, change: Position) => void,
+  disableVerticalAutoScroll: boolean,
 |};
 
 export type FluidScroller = {|
@@ -25,6 +26,7 @@ type WhileDragging = {|
 export default ({
   scrollWindow,
   scrollDroppable,
+  disableVerticalAutoScroll,
 }: PublicArgs): FluidScroller => {
   const scheduleWindowScroll = rafSchd(scrollWindow);
   const scheduleDroppableScroll = rafSchd(scrollDroppable);
@@ -40,6 +42,7 @@ export default ({
       scrollDroppable: scheduleDroppableScroll,
       dragStartTime,
       shouldUseTimeDampening,
+      disableVerticalAutoScroll,
     });
   };
 
@@ -58,6 +61,7 @@ export default ({
       shouldUseTimeDampening: false,
       scrollWindow: fakeScrollCallback,
       scrollDroppable: fakeScrollCallback,
+      disableVerticalAutoScroll,
     });
 
     dragging = {
