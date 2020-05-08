@@ -10,16 +10,19 @@ export type Args = {|
   scrollWindow: (offset: Position) => void,
   scrollDroppable: (id: DroppableId, change: Position) => void,
   move: (args: MoveArgs) => mixed,
+  disableVerticalAutoScroll: boolean,
 |};
 
 export default ({
   scrollDroppable,
   scrollWindow,
   move,
+  disableVerticalAutoScroll,
 }: Args): AutoScroller => {
   const fluidScroller: FluidScroller = createFluidScroller({
     scrollWindow,
     scrollDroppable,
+    disableVerticalAutoScroll,
   });
 
   const jumpScroll: JumpScroller = createJumpScroller({
